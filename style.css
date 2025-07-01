@@ -1,0 +1,659 @@
+/* --- Global Styles & Variables --- */
+
+:root {
+    --bg-color: #FFF0F5;
+    /* Light Lavender Blush */
+    --primary-color: #FADADD;
+    /* Light Pink */
+    --accent-color: #E6BF83;
+    /* Rose Gold */
+    --text-color: #5D4037;
+    --heading-font: 'Dancing Script', cursive;
+    --body-font: 'Quicksand', sans-serif;
+    --glow-color: rgba(230, 191, 131, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    cursor: none;
+    /* Hide default cursor */
+}
+
+body {
+    font-family: var(--body-font);
+    color: var(--text-color);
+    background: linear-gradient(170deg, var(--bg-color), var(--primary-color), white);
+    background-size: 200% 200%;
+    animation: gradient-pulse 15s ease infinite;
+    overflow-x: hidden;
+}
+
+@keyframes gradient-pulse {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+main {
+    position: relative;
+    z-index: 2;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--heading-font);
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.8rem;
+    margin: 20px 0 10px;
+    color: var(--text-color);
+}
+
+p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    line-height: 1.7;
+}
+
+.quote {
+    font-style: italic;
+    margin-top: 40px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.4);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 0 8px 8px 0;
+    max-width: 600px;
+}
+
+.text-container {
+    margin-bottom: 20px;
+}
+
+.text-container p {
+    margin-bottom: 15px;
+}
+
+
+/* --- Interactive & UX Elements --- */
+
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    z-index: 9999;
+}
+
+.custom-cursor.pulse::before {
+    content: '❤️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    animation: heart-pulse 1s infinite;
+}
+
+@keyframes heart-pulse {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.4);
+    }
+}
+
+.progress-tracker {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.progress-heart {
+    width: 25px;
+    height: 25px;
+    background: var(--primary-color);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    height: 0;
+}
+
+
+/* --- Navbar --- */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    text-align: center;
+}
+
+.navbar a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 600;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+
+/* --- Buttons --- */
+
+.btn {
+    display: inline-block;
+    padding: 15px 35px;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.btn.small-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+}
+
+.scroll-heart-btn {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: button-pulse 2s infinite;
+    text-decoration: none;
+}
+
+@keyframes button-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* --- Floating Elements --- */
+
+.floating-elements div {
+    position: fixed;
+    top: -50px;
+    opacity: 0;
+    animation: float 20s linear infinite;
+    z-index: 1;
+}
+
+.floating-elements .heart {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.floating-elements .petal {
+    width: 15px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50% 0;
+}
+
+.floating-elements .star::before {
+    font-size: 20px;
+    color: var(--accent-color);
+    content: '✨';
+}
+
+.floating-elements div:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-elements div:nth-child(2) {
+    left: 20%;
+    animation-delay: 5s;
+    animation-duration: 15s;
+}
+
+.floating-elements div:nth-child(3) {
+    left: 80%;
+    animation-delay: 2s;
+}
+
+.floating-elements div:nth-child(4) {
+    left: 50%;
+    animation-delay: 8s;
+}
+
+.floating-elements div:nth-child(5) {
+    left: 90%;
+    animation-delay: 12s;
+    animation-duration: 25s;
+}
+
+.floating-elements div:nth-child(6) {
+    left: 5%;
+    animation-delay: 1s;
+}
+
+.floating-elements div:nth-child(7) {
+    left: 30%;
+    animation-delay: 15s;
+}
+
+.floating-elements div:nth-child(8) {
+    left: 65%;
+    animation-delay: 9s;
+}
+
+@keyframes float {
+    from {
+        top: 110vh;
+        opacity: 1;
+        transform: rotate(0deg) translateX(0);
+    }
+    to {
+        top: -10vh;
+        opacity: 0;
+        transform: rotate(720deg) translateX(100px);
+    }
+}
+
+
+/* --- Section-Specific Styles --- */
+
+
+/* Home Section */
+
+.animated-title {
+    animation: fadeInLetter 1s forwards;
+}
+
+@keyframes fadeInLetter {
+    to {
+        opacity: 1;
+    }
+}
+
+.text-reveal p {
+    margin-bottom: 20px;
+}
+
+
+/* Ma's Section */
+
+.reveal-message {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease, opacity 0.8s ease, margin-top 0.8s ease;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.reveal-message.visible {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 20px;
+    padding: 20px 30px;
+}
+
+.quiet-things {
+    margin-top: 30px;
+}
+
+.quiet-things ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: inline-block;
+    text-align: left;
+}
+
+.quiet-things li {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+
+/* Papa's Section */
+
+.wisdom-wheel-container,
+.bro-mood-container {
+    margin: 20px 0;
+    min-height: 150px;
+}
+
+.feature-quote {
+    font-style: italic;
+    font-size: 1.5rem;
+    margin-top: 15px;
+    min-height: 50px;
+}
+
+.accordion {
+    max-width: 700px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.accordion h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.accordion-item {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    padding: 0 20px;
+}
+
+.accordion-content p {
+    padding-bottom: 20px;
+}
+
+
+/* Bro's Section */
+
+.brocode-messages {
+    margin-top: 30px;
+}
+
+.brocode-messages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.brocode-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px auto;
+    max-width: 500px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.brocode-item:hover {
+    transform: scale(1.02);
+}
+
+.brocode-item span {
+    display: block;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+.brocode-item.revealed span {
+    opacity: 1;
+    max-height: 50px;
+    margin-top: 5px;
+}
+
+
+/* *** Memory Lane Section - UPDATED STYLES *** */
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    /* Wider for better spacing */
+    width: 100%;
+    margin: 40px auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: rgba(255, 255, 255, 0.9);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    opacity: 0;
+    /* Add fade-in animation */
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.timeline-item.visible {
+    /* Class added by JS */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-item::after {
+    content: '🌷';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -15px;
+    top: 30%;
+    border-radius: 50%;
+    z-index: 1;
+    font-size: 24px;
+    text-align: center;
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -15px;
+}
+
+.timeline-content {
+    padding: 20px;
+    background-color: white;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+
+/* Style for the title inside the timeline card */
+
+.timeline-content h3 {
+    font-size: 1.6rem;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+
+/* Final Note Section */
+
+.final-letter {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 0 auto 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    text-align: left;
+    min-height: 200px;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background-color: var(--text-color);
+    animation: blink 1s step-end infinite;
+    vertical-align: bottom;
+}
+
+@keyframes blink {
+    from,
+    to {
+        background-color: transparent
+    }
+    50% {
+        background-color: var(--text-color);
+    }
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+    h2 {
+        font-size: 2.5rem;
+    }
+    .navbar a {
+        margin: 0 10px;
+        font-size: 0.9rem;
+    }
+    .progress-tracker,
+    .custom-cursor {
+        display: none;
+    }
+    html {
+        cursor: auto;
+    }
+    /* Responsive timeline */
+    .timeline::after {
+        left: 20px;
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 15px;
+    }
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+    .timeline-item::after {
+        left: 5px;
+    }
+}
